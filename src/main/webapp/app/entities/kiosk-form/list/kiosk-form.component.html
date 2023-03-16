@@ -1,0 +1,130 @@
+<div>
+  <h2 id="page-heading" data-cy="KioskFormHeading">
+    <span>Customer Queries</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-default jh-create-entity create-kiosk-form"
+        [routerLink]="['/kiosk-form/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Query</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="kioskForms?.length === 0">
+    <span>No Kiosk Forms found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="kioskForms && kioskForms.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="cfname">
+            <div class="d-flex">
+              <span>First Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="clname">
+            <div class="d-flex">
+              <span>Last Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="ccinf">
+            <div class="d-flex">
+              <span>Contact Information</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="customeraddress">
+            <div class="d-flex">
+              <span>Address</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="issuestartdate">
+            <div class="d-flex">
+              <span>Issue Started/Logged Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="issuetype">
+            <div class="d-flex">
+              <span>Type of Issue</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="issueDetail">
+            <div class="d-flex">
+              <span>Details of the Issue</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let kioskForm of kioskForms; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/kiosk-form', kioskForm.id, 'view']">{{ kioskForm.id }}</a>
+          </td>
+          <td>{{ kioskForm.cfname }}</td>
+          <td>{{ kioskForm.clname }}</td>
+          <td>{{ kioskForm.ccinf }}</td>
+          <td>{{ kioskForm.customeraddress }}</td>
+          <td>{{ kioskForm.issuestartdate | formatMediumDatetime }}</td>
+          <td>{{ kioskForm.issuetype }}</td>
+          <td>{{ kioskForm.issueDetail }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/kiosk-form', kioskForm.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/kiosk-form', kioskForm.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(kioskForm)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
