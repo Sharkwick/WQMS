@@ -48,6 +48,8 @@ public class CacheConfiguration {
             createCache(cm, com.apps.myqms.domain.User.class.getName());
             createCache(cm, com.apps.myqms.domain.Authority.class.getName());
             createCache(cm, com.apps.myqms.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.apps.myqms.domain.KioskForm.class.getName());
+            createCache(cm, com.apps.myqms.domain.ManForm.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

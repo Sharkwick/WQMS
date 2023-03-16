@@ -1,0 +1,109 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-man-form-heading" data-cy="ManFormCreateUpdateHeading">Address a Customer Query</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_user">Agent</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.login }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_kioskForm">Query ID</label>
+          <select
+            class="form-control"
+            id="field_kioskForm"
+            data-cy="kioskForm"
+            name="kioskForm"
+            formControlName="kioskForm"
+            [compareWith]="compareKioskForm"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="kioskFormOption" *ngFor="let kioskFormOption of kioskFormsSharedCollection">
+              {{ kioskFormOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" for="field_resolvetype">Query Status</label>
+        <select class="form-control" name="resolvetype" formControlName="resolvetype" id="field_resolvetype" data-cy="resolvetype">
+          <option [ngValue]="null"></option>
+          <option *ngFor="let resolveType of resolveTypeValues" [value]="resolveType">
+            {{ resolveType }}
+          </option>
+        </select>
+        <div *ngIf="editForm.get('resolvetype')!.invalid && (editForm.get('resolvetype')!.dirty || editForm.get('resolvetype')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('resolvetype')?.errors?.required"> This field is required. </small>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" for="field_resolvedetail">Details of the Solution Provided</label>
+        <textarea
+          class="form-control"
+          name="resolvedetail"
+          id="field_resolvedetail"
+          data-cy="resolvedetail"
+          formControlName="resolvedetail"
+        ></textarea>
+        <div
+          *ngIf="editForm.get('resolvedetail')!.invalid && (editForm.get('resolvedetail')!.dirty || editForm.get('resolvedetail')!.touched)"
+        >
+          <small class="form-text text-danger" *ngIf="editForm.get('resolvedetail')?.errors?.required"> This field is required. </small>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label class="form-label" for="field_resoldeddate">Query Addressed Date</label>
+        <div class="d-flex">
+          <input
+            id="field_resoldeddate"
+            data-cy="resoldeddate"
+            type="datetime-local"
+            class="form-control"
+            name="resoldeddate"
+            formControlName="resoldeddate"
+            placeholder="YYYY-MM-DD HH:mm"
+          />
+        </div>
+        <div
+          *ngIf="editForm.get('resoldeddate')!.invalid && (editForm.get('resoldeddate')!.dirty || editForm.get('resoldeddate')!.touched)"
+        >
+          <small class="form-text text-danger" *ngIf="editForm.get('resoldeddate')?.errors?.required"> This field is required. </small>
+          <small class="form-text text-danger" [hidden]="!editForm.get('resoldeddate')?.errors?.datetimelocal">
+            This field should be a date and time.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

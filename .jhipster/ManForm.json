@@ -1,0 +1,46 @@
+{
+  "applications": "*",
+  "changelogDate": "20230316051946",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "man_form",
+  "fields": [
+    {
+      "fieldName": "resolvetype",
+      "fieldType": "ResolveType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Passed,Failed,Transferred"
+    },
+    {
+      "fieldName": "resolvedetail",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "resoldeddate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ManForm",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "ccinf",
+      "otherEntityName": "kioskForm",
+      "relationshipName": "kioskForm",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="manForm">
+      <h2 data-cy="manFormDetailsHeading"><span>Man Form</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ manForm.id }}</span>
+        </dd>
+        <dt><span>Query Status</span></dt>
+        <dd>
+          <span>{{ manForm.resolvetype }}</span>
+        </dd>
+        <dt><span>Details of the Solution Provided</span></dt>
+        <dd>
+          <span>{{ manForm.resolvedetail }}</span>
+        </dd>
+        <dt><span>Query Addressed Date</span></dt>
+        <dd>
+          <span>{{ manForm.resoldeddate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Agent</span></dt>
+        <dd>
+          <span>{{ manForm.user?.login }}</span>
+        </dd>
+        <dt><span>Customer Query Reference</span></dt>
+        <dd>
+          <div *ngIf="manForm.kioskForm">
+            <a [routerLink]="['/kiosk-form', manForm.kioskForm.id, 'view']">{{ manForm.kioskForm.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/man-form', manForm.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

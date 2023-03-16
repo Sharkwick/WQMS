@@ -1,0 +1,133 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-kiosk-form-heading" data-cy="KioskFormCreateUpdateHeading">Create or edit a Query</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_cfname">First Name</label>
+          <input type="text" class="form-control" name="cfname" id="field_cfname" data-cy="cfname" formControlName="cfname" />
+          <div *ngIf="editForm.get('cfname')!.invalid && (editForm.get('cfname')!.dirty || editForm.get('cfname')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('cfname')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('cfname')?.errors?.minlength">
+              This field is required to be at least 3 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_clname">Last Name</label>
+          <input type="text" class="form-control" name="clname" id="field_clname" data-cy="clname" formControlName="clname" />
+          <div *ngIf="editForm.get('clname')!.invalid && (editForm.get('clname')!.dirty || editForm.get('clname')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('clname')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('clname')?.errors?.minlength">
+              This field is required to be at least 3 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ccinf">Contact Info</label>
+          <input type="number" class="form-control" name="ccinf" id="field_ccinf" data-cy="ccinf" formControlName="ccinf" />
+          <div *ngIf="editForm.get('ccinf')!.invalid && (editForm.get('ccinf')!.dirty || editForm.get('ccinf')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('ccinf')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('ccinf')?.errors?.number"> This field should be a number. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_customeraddress">Address</label>
+          <input
+            type="text"
+            class="form-control"
+            name="customeraddress"
+            id="field_customeraddress"
+            data-cy="customeraddress"
+            formControlName="customeraddress"
+          />
+          <div
+            *ngIf="
+              editForm.get('customeraddress')!.invalid &&
+              (editForm.get('customeraddress')!.dirty || editForm.get('customeraddress')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('customeraddress')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_issuestartdate">Issue Start/Logged Date</label>
+          <div class="d-flex">
+            <input
+              id="field_issuestartdate"
+              data-cy="issuestartdate"
+              type="datetime-local"
+              class="form-control"
+              name="issuestartdate"
+              formControlName="issuestartdate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div
+            *ngIf="
+              editForm.get('issuestartdate')!.invalid && (editForm.get('issuestartdate')!.dirty || editForm.get('issuestartdate')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('issuestartdate')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('issuestartdate')?.errors?.datetimelocal">
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_issuetype">Type of the Issue</label>
+          <select class="form-control" name="issuetype" formControlName="issuetype" id="field_issuetype" data-cy="issuetype">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let cissType of cissTypeValues" [value]="cissType">{{ cissType }}</option>
+          </select>
+          <div *ngIf="editForm.get('issuetype')!.invalid && (editForm.get('issuetype')!.dirty || editForm.get('issuetype')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('issuetype')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_issueDetail">Details of the Issue</label>
+          <textarea
+            class="form-control"
+            name="issueDetail"
+            id="field_issueDetail"
+            data-cy="issueDetail"
+            formControlName="issueDetail"
+          ></textarea>
+          <div *ngIf="editForm.get('issueDetail')!.invalid && (editForm.get('issueDetail')!.dirty || editForm.get('issueDetail')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('issueDetail')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

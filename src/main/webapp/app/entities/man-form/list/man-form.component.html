@@ -1,0 +1,129 @@
+<div>
+  <h2 id="page-heading" data-cy="ManFormHeading">
+    <span>Resolved Queries list</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-default jh-create-entity create-man-form"
+        [routerLink]="['/man-form/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Address a Query </span>
+      </button>
+    </div>
+
+    <div class="d-flex left-content-end">
+      <button id="View_CQ" data-cy="QueryViewbutton" class="btn btn-primary" [routerLink]="['/kiosk-form']">
+        <fa-icon icon="list"></fa-icon>
+        <span> View All Queries </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="manForms?.length === 0">
+    <span>No Queries found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="manForms && manForms.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="resolvetype">
+            <div class="d-flex">
+              <span>Query Status</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="resolvedetail">
+            <div class="d-flex">
+              <span>Details of the Solution Provided</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="resoldeddate">
+            <div class="d-flex">
+              <span>Query Addressed Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="user.login">
+            <div class="d-flex">
+              <span>Agent</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="kioskForm.id">
+            <div class="d-flex">
+              <span>Customer Query Reference</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let manForm of manForms; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/man-form', manForm.id, 'view']">{{ manForm.id }}</a>
+          </td>
+          <td>{{ manForm.resolvetype }}</td>
+          <td>{{ manForm.resolvedetail }}</td>
+          <td>{{ manForm.resoldeddate | formatMediumDatetime }}</td>
+          <td>
+            {{ manForm.user?.login }}
+          </td>
+          <td>
+            <div *ngIf="manForm.kioskForm">
+              <a [routerLink]="['/kiosk-form', manForm.kioskForm.id, 'view']">{{ manForm.kioskForm.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/man-form', manForm.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/man-form', manForm.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(manForm)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

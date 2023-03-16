@@ -1,0 +1,55 @@
+{
+  "applications": "*",
+  "changelogDate": "20230316051945",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "kiosk_form",
+  "fields": [
+    {
+      "fieldName": "cfname",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength"],
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "clname",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength"],
+      "fieldValidateRulesMinlength": "3"
+    },
+    {
+      "fieldName": "ccinf",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "customeraddress",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "issuestartdate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "issuetype",
+      "fieldType": "CissType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "Hardware,Software,Nullware,Other"
+    },
+    {
+      "fieldName": "issueDetail",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "KioskForm",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

@@ -1,0 +1,32 @@
+
+entity KioskForm{
+	cfname String required minlength(3)
+    clname String required minlength(3)
+    ccinf Integer required
+    customeraddress String required
+	issuestartdate Instant required
+    issuetype CissType required
+    issueDetail TextBlob required 
+}
+
+entity ManForm{
+	resolvetype ResolveType required
+    resolvedetail TextBlob required
+    resoldeddate Instant required
+}
+
+enum CissType{
+	Hardware, Software, Nullware, Other
+}
+
+enum ResolveType{
+	Passed, Failed, Transferred
+}
+
+relationship ManyToOne{
+	ManForm {user(login)} to User
+}
+
+relationship ManyToOne{
+	ManForm {KioskForm(ccinf)} to KioskForm
+}

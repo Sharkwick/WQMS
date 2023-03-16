@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="kioskForm">
+      <h2 data-cy="kioskFormDetailsHeading"><span>Customer Query</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>Query ID</span></dt>
+        <dd>
+          <span>{{ kioskForm.id }}</span>
+        </dd>
+        <dt><span>First Name</span></dt>
+        <dd>
+          <span>{{ kioskForm.cfname }}</span>
+        </dd>
+        <dt><span>Last Name</span></dt>
+        <dd>
+          <span>{{ kioskForm.clname }}</span>
+        </dd>
+        <dt><span>Contact Information</span></dt>
+        <dd>
+          <span>{{ kioskForm.ccinf }}</span>
+        </dd>
+        <dt><span>Address</span></dt>
+        <dd>
+          <span>{{ kioskForm.customeraddress }}</span>
+        </dd>
+        <dt><span>Issue Start/Logged Date</span></dt>
+        <dd>
+          <span>{{ kioskForm.issuestartdate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Type of Issue</span></dt>
+        <dd>
+          <span>{{ kioskForm.issuetype }}</span>
+        </dd>
+        <dt><span>Details of the Issue</span></dt>
+        <dd>
+          <span>{{ kioskForm.issueDetail }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/kiosk-form', kioskForm.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
