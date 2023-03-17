@@ -21,7 +21,7 @@
     "enableTranslation": false,
     "entities": ["KioskForm", "ManForm"],
     "entitySuffix": "",
-    "herokuAppName": "qms",
+    "herokuAppName": null,
     "herokuDeployType": "jar",
     "herokuJavaVersion": "11",
     "jhiPrefix": "jhi",

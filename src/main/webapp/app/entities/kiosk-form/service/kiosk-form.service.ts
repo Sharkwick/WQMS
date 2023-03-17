@@ -86,6 +86,7 @@ export class KioskFormService {
       const kioskFormsToAdd = kioskForms.filter(kioskFormItem => {
         const kioskFormIdentifier = this.getKioskFormIdentifier(kioskFormItem);
         if (kioskFormCollectionIdentifiers.includes(kioskFormIdentifier)) {
+          kioskFormCollectionIdentifiers.splice(0, kioskFormIdentifier);
           return false;
         }
         kioskFormCollectionIdentifiers.push(kioskFormIdentifier);

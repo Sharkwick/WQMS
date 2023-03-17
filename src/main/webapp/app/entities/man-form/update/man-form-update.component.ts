@@ -50,7 +50,6 @@ export class ManFormUpdateComponent implements OnInit {
       if (manForm) {
         this.updateForm(manForm);
       }
-
       this.loadRelationshipsOptions();
     });
   }
@@ -106,7 +105,6 @@ export class ManFormUpdateComponent implements OnInit {
   protected updateForm(manForm: IManForm): void {
     this.manForm = manForm;
     this.manFormFormService.resetForm(this.editForm, manForm);
-
     this.usersSharedCollection = this.userService.addUserToCollectionIfMissing<IUser>(this.usersSharedCollection, manForm.user);
     this.kioskFormsSharedCollection = this.kioskFormService.addKioskFormToCollectionIfMissing<IKioskForm>(
       this.kioskFormsSharedCollection,
