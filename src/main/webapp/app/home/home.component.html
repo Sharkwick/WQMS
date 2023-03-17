@@ -7,50 +7,61 @@
     <h1 class="display-4" align="center" style="color: #6169b4"><span>Welcome to Wickz Queue Management System</span></h1>
 
     <div [ngSwitch]="account !== null">
-      <div class="alert alert-info" *ngSwitchCase="false">
+      <div class="fs-4" align="center" style="background-color: #1d202b" *ngSwitchCase="false">
+        <div style="height: 20px; width: 100%"></div>
         <span
           >Please Use <br />
-          login="user" and password="user" <br />
-          to
+          login="user" and password="user" to <br />
         </span>
-        <a class="alert-link" (click)="login()">sign in</a><span> to create a query</span>
+        <a class="btn btn-info" (click)="login()">sign in</a
+        ><span>
+          <br />
+          and create a query*</span
+        >
       </div>
     </div>
 
-    <div style="height: 20px; width: 100%"></div>
-
-    <div class="d-flex justify-content-start">
-      <h4><span>User Controls</span></h4>
-    </div>
-    <div class="d-flex justify-content-start">
-      <h5>
-        <button class="btn btn-primary" [routerLink]="['/kiosk-form/new']">
-          <fa-icon icon="plus"></fa-icon>
-          <span> Create a new Query</span>
-        </button>
-        <button class="btn btn-success" [routerLink]="['/kiosk-form']">
-          <fa-icon icon="list"></fa-icon>
-          <span> View All Queries</span>
-        </button>
-      </h5>
+    <div [ngSwitch]="account !== null">
+      <div class="fs-sm-1" align="left" style="color: #ffffff" *ngSwitchCase="false">
+        <div style="height: 150px; width: 100%"></div>
+        <p class="fs-sm-1" align="left">*Internal users should login using their own logins</p>
+      </div>
     </div>
 
-    <div style="height: 10px; width: 100%"></div>
+    <div [ngSwitch]="account !== null">
+      <div class="display-4" *ngSwitchCase="true">
+        <div style="height: 50px; width: 100%"></div>
+        <div class="d-flex justify-content-center">
+          <h5>
+            <button class="btn btn-info btn-lg btn-block" [routerLink]="['/kiosk-form/new']">
+              <fa-icon icon="plus"></fa-icon>
+              <span>Raise an Issue</span>
+            </button>
+          </h5>
+        </div>
 
-    <div class="d-flex justify-content-start">
-      <h4><span>Agent Controls</span></h4>
-    </div>
-    <div class="d-flex justify-content-start">
-      <h5>
-        <button class="btn btn-primary" [routerLink]="['/man-form/new']">
-          <fa-icon icon="plus"></fa-icon>
-          <span> Address a Query</span>
-        </button>
-        <button class="btn btn-success" [routerLink]="['/man-form']">
-          <fa-icon icon="list"></fa-icon>
-          <span> View Addressed Queries</span>
-        </button>
-      </h5>
+        <div style="height: 150px; width: 100%"></div>
+
+        <div class="d-flex justify-content-start">
+          <h6><span>Agent Controls</span></h6>
+        </div>
+        <div class="d-flex justify-content-start">
+          <h5>
+            <button class="btn btn-info btn-sm" [routerLink]="['/man-form/new']">
+              <fa-icon icon="plus"></fa-icon>
+              <span> Address a Query</span>
+            </button>
+            <button class="btn btn-success btn-sm" [routerLink]="['/kiosk-form']">
+              <fa-icon icon="list"></fa-icon>
+              <span> View All Customer Issues</span>
+            </button>
+            <button class="btn btn-warning btn-sm" [routerLink]="['/man-form']">
+              <fa-icon icon="eye"></fa-icon>
+              <span> View All Addressed Issues</span>
+            </button>
+          </h5>
+        </div>
+      </div>
     </div>
   </div>
 </div>
