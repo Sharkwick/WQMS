@@ -3,12 +3,14 @@ import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IManForm } from '../man-form.model';
+import { IManForm, netQueries } from '../man-form.model';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
 import { EntityArrayResponseType, ManFormService } from '../service/man-form.service';
 import { ManFormDeleteDialogComponent } from '../delete/man-form-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { SortService } from 'app/shared/sort/sort.service';
+import { IKioskForm } from 'app/entities/kiosk-form/kiosk-form.model';
+import { KioskFormService } from 'app/entities/kiosk-form/service/kiosk-form.service';
 
 @Component({
   selector: 'jhi-man-form',
@@ -16,6 +18,8 @@ import { SortService } from 'app/shared/sort/sort.service';
 })
 export class ManFormComponent implements OnInit {
   manForms?: IManForm[];
+  kioskForms?: IKioskForm[];
+  NetQCount = netQueries;
   isLoading = false;
 
   predicate = 'id';
@@ -23,6 +27,7 @@ export class ManFormComponent implements OnInit {
 
   constructor(
     protected manFormService: ManFormService,
+    protected KioskFormService: KioskFormService,
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected sortService: SortService,
@@ -88,9 +93,16 @@ export class ManFormComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.manForms = this.refineData(dataFromBody);
+    this.kioskForms = this.refineData2(dataFromBody);
+    this.NetQCount = this.kioskForms.length - this.manForms.length;
+    //     let NetQCount: number => (this.refineData(dataFromBody) - this.refineData2(dataFromBody));
   }
 
   protected refineData(data: IManForm[]): IManForm[] {
+    return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
+  }
+
+  protected refineData2(data: IKioskForm[]): IKioskForm[] {
     return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
   }
 

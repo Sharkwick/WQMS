@@ -12,4 +12,6 @@ export interface IManForm {
   kioskForm?: Pick<IKioskForm, 'id' | 'ccinf'> | null;
 }
 
+export var netQueries: number;
+
 export type NewManForm = Omit<IManForm, 'id'> & { id: null };
