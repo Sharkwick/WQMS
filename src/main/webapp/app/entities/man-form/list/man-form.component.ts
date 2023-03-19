@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ShVarService } from 'app/shared/SharedServices/sh-var.service';
 
 import { IManForm, netQueries } from '../man-form.model';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
@@ -19,8 +20,9 @@ import { KioskFormService } from 'app/entities/kiosk-form/service/kiosk-form.ser
 export class ManFormComponent implements OnInit {
   manForms?: IManForm[];
   kioskForms?: IKioskForm[];
-  NetQCount = netQueries;
   isLoading = false;
+  RaisedQCount!: number;
+  NetQCount!: number;
 
   predicate = 'id';
   ascending = true;
@@ -32,7 +34,8 @@ export class ManFormComponent implements OnInit {
     public router: Router,
     protected sortService: SortService,
     protected dataUtils: DataUtils,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private shared: ShVarService
   ) {}
 
   trackId = (_index: number, item: IManForm): number => this.manFormService.getManFormIdentifier(item);
@@ -93,16 +96,11 @@ export class ManFormComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.manForms = this.refineData(dataFromBody);
-    this.kioskForms = this.refineData2(dataFromBody);
-    this.NetQCount = this.kioskForms.length - this.manForms.length;
-    //     let NetQCount: number => (this.refineData(dataFromBody) - this.refineData2(dataFromBody));
+    this.RaisedQCount = this.shared.getRaiQC();
+    this.NetQCount = this.RaisedQCount - this.manForms?.length;
   }
 
   protected refineData(data: IManForm[]): IManForm[] {
-    return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
-  }
-
-  protected refineData2(data: IKioskForm[]): IKioskForm[] {
     return data.sort(this.sortService.startSort(this.predicate, this.ascending ? 1 : -1));
   }
 

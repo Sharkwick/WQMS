@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center" *jhiHasAnyAuthority="'ROLE_ADMIN'">
   <div class="col-8">
     <div *ngIf="manForm">
       <h2 data-cy="manFormDetailsHeading"><span>Man Form</span></h2>

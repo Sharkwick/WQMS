@@ -32,34 +32,36 @@
       <div class="display-4" *ngSwitchCase="true">
         <div style="height: 50px; width: 100%"></div>
         <div class="d-flex justify-content-center">
-          <h5>
+          <h4>
             <button class="btn btn-info btn-lg btn-block" [routerLink]="['/kiosk-form/new']">
-              <fa-icon icon="plus"></fa-icon>
+              <fa-icon icon="flag"></fa-icon>
               <span>Raise an Issue</span>
             </button>
-          </h5>
+          </h4>
         </div>
+        <div align="center">
+          <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+            <div style="height: 50px; width: 100%"></div>
 
-        <div style="height: 150px; width: 100%"></div>
+            <div>
+              <span class="fs-4"> ----Admin Controls---- </span>
+            </div>
 
-        <div class="d-flex justify-content-start">
-          <h6><span>Agent Controls</span></h6>
-        </div>
-        <div class="d-flex justify-content-start">
-          <h5>
-            <button class="btn btn-info btn-sm" [routerLink]="['/man-form/new']">
-              <fa-icon icon="plus"></fa-icon>
-              <span> Address a Query</span>
-            </button>
-            <button class="btn btn-success btn-sm" [routerLink]="['/kiosk-form']">
-              <fa-icon icon="list"></fa-icon>
-              <span> View All Customer Issues</span>
-            </button>
-            <button class="btn btn-warning btn-sm" [routerLink]="['/man-form']">
-              <fa-icon icon="eye"></fa-icon>
-              <span> View All Addressed Issues</span>
-            </button>
-          </h5>
+            <div class="flex justify-content-around">
+              <button class="btn btn-primary" [routerLink]="['/man-form/new']">
+                <fa-icon icon="check"></fa-icon>
+                <span>Address an Issue</span>
+              </button>
+              <button class="btn btn-warning" [routerLink]="['/kiosk-form']">
+                <fa-icon icon="eye"></fa-icon>
+                <span>View all Raised Queries</span>
+              </button>
+              <button class="btn btn-success" [routerLink]="['/man-form']">
+                <fa-icon icon="list"></fa-icon>
+                <span>View all Addressed Queries & Agent Dashboard</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data, ParamMap, Router } from '@angular/router';
 import { combineLatest, filter, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ShVarService } from 'app/shared/SharedServices/sh-var.service';
 
 import { IKioskForm } from '../kiosk-form.model';
 import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
@@ -9,6 +10,8 @@ import { EntityArrayResponseType, KioskFormService } from '../service/kiosk-form
 import { KioskFormDeleteDialogComponent } from '../delete/kiosk-form-delete-dialog.component';
 import { DataUtils } from 'app/core/util/data-util.service';
 import { SortService } from 'app/shared/sort/sort.service';
+import { CissType } from 'app/entities/enumerations/ciss-type.model';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'jhi-kiosk-form',
@@ -27,7 +30,8 @@ export class KioskFormComponent implements OnInit {
     public router: Router,
     protected sortService: SortService,
     protected dataUtils: DataUtils,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private shared: ShVarService
   ) {}
 
   trackId = (_index: number, item: IKioskForm): number => this.kioskFormService.getKioskFormIdentifier(item);
@@ -88,6 +92,7 @@ export class KioskFormComponent implements OnInit {
   protected onResponseSuccess(response: EntityArrayResponseType): void {
     const dataFromBody = this.fillComponentAttributesFromResponseBody(response.body);
     this.kioskForms = this.refineData(dataFromBody);
+    this.shared.setRaiQC(this.kioskForms?.length);
   }
 
   protected refineData(data: IKioskForm[]): IKioskForm[] {

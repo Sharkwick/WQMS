@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center" *jhiHasAnyAuthority="'ROLE_ADMIN'">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-man-form-heading" data-cy="ManFormCreateUpdateHeading">Address a Customer Query</h2>
@@ -13,10 +13,20 @@
 
         <div class="row mb-3">
           <label class="form-label" for="field_user">Agent</label>
-          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
-            <option [ngValue]="null"></option>
-            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.login }}</option>
-          </select>
+          <input
+            type="string"
+            class="form-control"
+            name="user"
+            id="field_user"
+            data-cy="user"
+            formControlName="user"
+            placeholder="admin"
+            [readonly]="true"
+          />
+          <!--          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">-->
+          <!--            <option [ngValue]="null"></option>-->
+          <!--            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.login }}</option>-->
+          <!--          </select>-->
         </div>
 
         <div class="row mb-3">
@@ -36,10 +46,10 @@
           </select>
         </div>
 
-        <div class="d-flex justify-content-start">
-          <label class="form-label">Name : </label>
-          <label class="form-label">Issue : </label>
-        </div>
+        <!--        <div class="d-flex justify-content-start">-->
+        <!--          <label class="form-label">Name : </label>-->
+        <!--          <label class="form-label">Issue : </label>-->
+        <!--        </div>-->
       </div>
 
       <div class="row mb-3">

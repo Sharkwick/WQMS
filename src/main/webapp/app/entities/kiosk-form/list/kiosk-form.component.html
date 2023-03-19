@@ -1,21 +1,10 @@
 <div>
   <h2 id="page-heading" data-cy="KioskFormHeading">
     <span>Customer Queries</span>
-
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span>Refresh list</span>
-      </button>
-
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-default jh-create-entity create-kiosk-form"
-        [routerLink]="['/kiosk-form/new']"
-      >
-        <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Query</span>
       </button>
     </div>
   </h2>

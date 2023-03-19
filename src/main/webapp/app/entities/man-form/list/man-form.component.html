@@ -1,26 +1,11 @@
-<div>
+<div *jhiHasAnyAuthority="'ROLE_ADMIN'">
   <h2 id="page-heading" data-cy="ManFormHeading">
     <span>Resolved Queries list</span>
 
-    <div class="d-flex justify-content-around">
-      <div class="fs-6">
-        <div class="alert alert-success" role="alert">
-          <label class="form-label">Total Raised Queries : </label>
-          <label class="form-label">{{ kioskForms?.length }}</label>
-        </div>
-      </div>
-      <div class="fs-6">
-        <div class="alert alert-success" role="alert">
-          <label class="form-label">Total Closed Queries : </label>
-          <label class="form-label">{{ manForms?.length }}</label>
-        </div>
-      </div>
-      <div class="fs-6">
-        <div class="alert alert-success" role="alert">
-          <label class="form-label">Total Active Queries : </label>
-          <label class="form-label">{{ NetQCount }}</label>
-        </div>
-      </div>
+    <div class="justify-content-around" align="center">
+      <label class="alert alert-warning fs-6">Total Raised Queries : {{ RaisedQCount }}</label>
+      <label class="alert alert-success fs-6">Total Closed Queries : {{ manForms?.length }}</label>
+      <label class="alert alert-danger fs-6">Total Pending Queries : {{ NetQCount }}</label>
     </div>
 
     <div class="d-flex justify-content-end">
