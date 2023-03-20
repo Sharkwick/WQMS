@@ -2,7 +2,6 @@
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
       <h2 id="jhi-man-form-heading" data-cy="ManFormCreateUpdateHeading">Address a Customer Query</h2>
-
       <div>
         <jhi-alert-error></jhi-alert-error>
 
@@ -23,10 +22,6 @@
             placeholder="admin"
             [readonly]="true"
           />
-          <!--          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">-->
-          <!--            <option [ngValue]="null"></option>-->
-          <!--            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.login }}</option>-->
-          <!--          </select>-->
         </div>
 
         <div class="row mb-3">
@@ -45,13 +40,7 @@
             </option>
           </select>
         </div>
-
-        <!--        <div class="d-flex justify-content-start">-->
-        <!--          <label class="form-label">Name : </label>-->
-        <!--          <label class="form-label">Issue : </label>-->
-        <!--        </div>-->
       </div>
-
       <div class="row mb-3">
         <label class="form-label" for="field_resolvetype">Query Status</label>
         <select class="form-control" name="resolvetype" formControlName="resolvetype" id="field_resolvetype" data-cy="resolvetype">

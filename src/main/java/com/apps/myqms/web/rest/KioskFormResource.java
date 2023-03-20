@@ -56,13 +56,13 @@ public class KioskFormResource {
             throw new BadRequestAlertException("A new kioskForm cannot already have an ID", ENTITY_NAME, "idexists");
         }
         KioskForm result = kioskFormRepository.save(kioskForm);
-        System.out.println("A new Query has been raised with ID " + result.getId());
+        System.out.println("Thank You ! your query has been logged with ID " + result.getId());
         return ResponseEntity
             .created(new URI("/api/kiosk-forms/" + result.getId()))
             .headers(
                 HeaderUtil.createAlert(
                     applicationName,
-                    "A new Query has been raised with ID " + result.getId(),
+                    "Thank You ! your query has been logged with ID " + result.getId(),
                     String.valueOf(result.getId())
                 )
             )
@@ -103,7 +103,7 @@ public class KioskFormResource {
             .headers(
                 HeaderUtil.createAlert(
                     applicationName,
-                    "A new Query has been updated with ID " + result.getId(),
+                    "Query with ID " + result.getId() + " has been updated with new values.",
                     String.valueOf(result.getId())
                 )
             )
